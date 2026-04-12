@@ -401,12 +401,13 @@
   }
 
   .tpl-x-revenue .xr-amount {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 56px;
-    font-weight: 700;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 52px;
+    font-weight: 800;
     color: #e7e9ea;
     margin-bottom: 20px;
-    letter-spacing: -1px;
+    letter-spacing: -0.5px;
+    font-variant-numeric: tabular-nums;
   }
 
   .tpl-x-revenue .xr-stats {
@@ -424,6 +425,7 @@
     font-weight: 700;
     font-size: 15px;
     margin-top: 2px;
+    font-variant-numeric: tabular-nums;
   }
 
   .tpl-x-revenue .xr-stat-val.green {
@@ -475,12 +477,13 @@
   }
 
   .tpl-bank .bank-amount {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 52px;
-    font-weight: 700;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 48px;
+    font-weight: 800;
     color: #212529;
     margin-bottom: 24px;
-    letter-spacing: -1px;
+    letter-spacing: -0.5px;
+    font-variant-numeric: tabular-nums;
   }
 
   .tpl-bank .bank-sub {
@@ -496,11 +499,12 @@
   }
 
   .tpl-bank .bank-sub-val {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     font-weight: 700;
     color: #212529;
     font-size: 16px;
     margin-top: 2px;
+    font-variant-numeric: tabular-nums;
   }
 
   .tpl-bank .bank-sub-val.plus {
@@ -547,12 +551,13 @@
   }
 
   .tpl-stripe .str-amount {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 52px;
-    font-weight: 700;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    font-size: 48px;
+    font-weight: 800;
     color: white;
     margin-bottom: 6px;
-    letter-spacing: -1px;
+    letter-spacing: -0.5px;
+    font-variant-numeric: tabular-nums;
   }
 
   .tpl-stripe .str-change {
@@ -594,11 +599,12 @@
   }
 
   .tpl-stripe .str-foot-val {
-    font-family: 'IBM Plex Mono', monospace;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
     font-weight: 700;
     color: white;
     font-size: 15px;
     margin-top: 2px;
+    font-variant-numeric: tabular-nums;
   }
 
   /* ===== WATERMARK ===== */
@@ -1039,11 +1045,11 @@ function updateTweetTemplates() {
   const short = fmtShort(amt);
 
   const templates = [
-    `${getMonthStr()}の収益報告です。\n\n${formatted}\n\n正直、もう会社辞めてもいい気がしてます。\n\n#収益報告 #副業`,
-    `副業3ヶ月目。\n月収${short}を達成しました。\n\nやったことはプロフに書いてます。\n（何も書いてない）\n\n#副業で稼ぐ`,
-    `え、まだ会社で消耗してるの？\n\n僕は先月${short}稼ぎました。\n方法？ DMください。\n（DMしても何も来ません）\n\n#脱サラ`,
+    `${getMonthStr()}の収益報告です。\n\n${formatted}\n\n正直、もう会社辞めてもいい気がしてます。\n\n#収益報告 #副業 #億り人ジェネレーター`,
+    `副業3ヶ月目。\n月収${short}を達成しました。\n\nやったことはプロフに書いてます。\n（何も書いてない）\n\n#副業で稼ぐ #億り人ジェネレーター`,
+    `え、まだ会社で消耗してるの？\n\n僕は先月${short}稼ぎました。\n方法？ DMください。\n（DMしても何も来ません）\n\n#脱サラ #億り人ジェネレーター`,
     `【${getMonthStr()}実績】\n売上：${formatted}\n労働時間：1日30分\n場所：タイのプール付きヴィラ\n\n嘘です。布団の中です。\n\n#億り人ジェネレーター`,
-    `月収${short}達成したので\n有料note出します。\n\n内容：「このスクショの作り方」\n価格：49,800円\n\n※このスクショはフィクションです\n\n#情報商材 #ネタ`,
+    `月収${short}達成したので\n有料note出します。\n\n内容：「このスクショの作り方」\n価格：49,800円\n\n※このスクショはフィクションです\n\n#情報商材 #ネタ #億り人ジェネレーター`,
   ];
 
   const container = document.getElementById('tweetTemplates');
