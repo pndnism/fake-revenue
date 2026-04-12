@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>億り人ジェネレーター - 架空の収益報告メーカー</title>
+<meta name="description" content="架空の収益報告スクリーンショットを生成するネタサイト。情報商材屋ごっこを楽しもう。">
+<meta property="og:title" content="億り人ジェネレーター">
+<meta property="og:description" content="あなたも今日から億り人。架空の収益報告を作って遊ぼう。">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&family=Dela+Gothic+One&family=IBM+Plex+Mono:wght@400;600;700&display=swap');
+
+  :root {
+    --bg: #0c0c14;
+    --surface: #16161f;
+    --surface2: #1e1e2a;
+    --border: #2a2a3a;
+    --text: #e8e6e3;
+    --text-dim: #8888a0;
+    --accent: #ff6b35;
+    --accent2: #ffd166;
+    --green: #06d6a0;
+    --red: #ef476f;
+    --purple: #b388ff;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Zen Maru Gothic', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    text-align: center;
+    padding: 60px 20px 40px;
+    position: relative;
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  }
+
+  .site-badge {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+
+  .site-title {
+    font-family: 'Dela Gothic One', sans-serif;
+    font-size: clamp(28px, 6vw, 48px);
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+
+  .site-desc {
+    font-size: 15px;
+    color: var(--text-dim);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.8;
+  }
+
+  .site-desc strong {
+    color: var(--accent2);
+  }
+
+  /* ===== DISCLAIMER ===== */
+  .disclaimer {
+    max-width: 640px;
+    margin: 30px auto 0;
+    background: rgba(239, 71, 111, 0.08);
+    border: 1px solid rgba(239, 71, 111, 0.2);
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 12.5px;
+    color: var(--red);
+    line-height: 1.7;
+    text-align: left;
+  }
+
+  .disclaimer::before {
+    content: '⚠️ ';
+  }
+
+  /* ===== MAIN ===== */
+  .main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  /* ===== CONTROLS ===== */
+  .controls {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 32px;
+  }
+
+  .control-section {
+    margin-bottom: 24px;
+  }
+
+  .control-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .control-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-dim);
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* Template picker */
+  .template-picker {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+
+  .template-btn {
+    background: var(--surface2);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    padding: 16px 12px;
+    color: var(--text);
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+    font-family: inherit;
+    font-size: 13px;
+  }
+
+  .template-btn:hover {
+    border-color: var(--accent);
+    background: rgba(255, 107, 53, 0.05);
+  }
+
+  .template-btn.active {
+    border-color: var(--accent);
+    background: rgba(255, 107, 53, 0.1);
+  }
+
+  .template-btn .t-icon {
+    font-size: 28px;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .template-btn .t-name {
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  .template-btn .t-desc {
+    font-size: 11px;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  /* Amount input */
+  .amount-row {
+    display: flex;
+    gap: 10px;
+    align-items: stretch;
+  }
+
+  .currency-toggle {
+    display: flex;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  .currency-btn {
+    background: var(--surface2);
+    border: none;
+    color: var(--text-dim);
+    padding: 0 16px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .currency-btn.active {
+    background: var(--accent);
+    color: white;
+  }
+
+  .amount-input {
+    flex: 1;
+    background: var(--surface2);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 18px;
+    color: var(--text);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 24px;
+    font-weight: 700;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .amount-input:focus {
+    border-color: var(--accent);
+  }
+
+  .amount-input::placeholder {
+    color: var(--text-dim);
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  /* Quick amounts */
+  .quick-amounts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .quick-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 14px;
+    color: var(--text-dim);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .quick-btn:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  /* Generate button */
+  .generate-btn {
+    width: 100%;
+    background: linear-gradient(135deg, var(--accent), #ff8c42);
+    border: none;
+    border-radius: 12px;
+    padding: 16px;
+    color: white;
+    font-family: inherit;
+    font-size: 17px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    letter-spacing: 1px;
+    margin-top: 8px;
+  }
+
+  .generate-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 24px rgba(255, 107, 53, 0.3);
+  }
+
+  .generate-btn:active {
+    transform: translateY(0);
+  }
+
+  /* ===== PREVIEW ===== */
+  .preview-section {
+    display: none;
+  }
+
+  .preview-section.visible {
+    display: block;
+  }
+
+  .preview-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+
+  .preview-title {
+    font-size: 14px;
+    color: var(--text-dim);
+    font-weight: 700;
+  }
+
+  .action-btns {
+    display: flex;
+    gap: 8px;
+  }
+
+  .action-btn {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 10px 20px;
+    color: var(--text);
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .action-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .action-btn.x-btn {
+    background: #000;
+    border-color: #333;
+    color: white;
+  }
+
+  .action-btn.x-btn:hover {
+    background: #1a1a1a;
+    border-color: #555;
+  }
+
+  /* ===== SCREENSHOT TEMPLATES ===== */
+  .screenshot-wrapper {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.4);
+    margin-bottom: 24px;
+  }
+
+  /* --- Template 1: X Revenue --- */
+  .tpl-x-revenue {
+    background: #000;
+    padding: 40px 36px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    position: relative;
+    min-height: 340px;
+  }
+
+  .tpl-x-revenue .xr-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .tpl-x-revenue .xr-logo {
+    width: 32px;
+    height: 32px;
+    background: white;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 900;
+    color: black;
+  }
+
+  .tpl-x-revenue .xr-title {
+    color: #e7e9ea;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .tpl-x-revenue .xr-period {
+    color: #71767b;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .tpl-x-revenue .xr-amount {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 56px;
+    font-weight: 700;
+    color: #e7e9ea;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+  }
+
+  .tpl-x-revenue .xr-stats {
+    display: flex;
+    gap: 32px;
+  }
+
+  .tpl-x-revenue .xr-stat {
+    color: #71767b;
+    font-size: 13px;
+  }
+
+  .tpl-x-revenue .xr-stat-val {
+    color: #1d9bf0;
+    font-weight: 700;
+    font-size: 15px;
+    margin-top: 2px;
+  }
+
+  .tpl-x-revenue .xr-stat-val.green {
+    color: #00ba7c;
+  }
+
+  /* --- Template 2: Bank Balance --- */
+  .tpl-bank {
+    background: linear-gradient(170deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 36px 36px 32px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    position: relative;
+    min-height: 340px;
+    color: #212529;
+  }
+
+  .tpl-bank .bank-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+  }
+
+  .tpl-bank .bank-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #495057;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .tpl-bank .bank-dot {
+    width: 10px;
+    height: 10px;
+    background: #40c057;
+    border-radius: 50%;
+  }
+
+  .tpl-bank .bank-date {
+    font-size: 13px;
+    color: #868e96;
+  }
+
+  .tpl-bank .bank-label {
+    font-size: 13px;
+    color: #868e96;
+    margin-bottom: 6px;
+  }
+
+  .tpl-bank .bank-amount {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 52px;
+    font-weight: 700;
+    color: #212529;
+    margin-bottom: 24px;
+    letter-spacing: -1px;
+  }
+
+  .tpl-bank .bank-sub {
+    display: flex;
+    gap: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #dee2e6;
+  }
+
+  .tpl-bank .bank-sub-item {
+    font-size: 13px;
+    color: #868e96;
+  }
+
+  .tpl-bank .bank-sub-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    color: #212529;
+    font-size: 16px;
+    margin-top: 2px;
+  }
+
+  .tpl-bank .bank-sub-val.plus {
+    color: #40c057;
+  }
+
+  /* --- Template 3: Stripe Dashboard --- */
+  .tpl-stripe {
+    background: #0a2540;
+    padding: 36px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    position: relative;
+    min-height: 340px;
+    color: white;
+  }
+
+  .tpl-stripe .str-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+  }
+
+  .tpl-stripe .str-brand {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #635bff;
+  }
+
+  .tpl-stripe .str-badge {
+    background: rgba(99, 91, 255, 0.15);
+    color: #a39dff;
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+
+  .tpl-stripe .str-label {
+    font-size: 14px;
+    color: #8898aa;
+    margin-bottom: 6px;
+  }
+
+  .tpl-stripe .str-amount {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 52px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 6px;
+    letter-spacing: -1px;
+  }
+
+  .tpl-stripe .str-change {
+    font-size: 14px;
+    color: #3ecf8e;
+    margin-bottom: 24px;
+    font-weight: 600;
+  }
+
+  .tpl-stripe .str-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 6px;
+    height: 60px;
+    margin-bottom: 20px;
+  }
+
+  .tpl-stripe .str-bar {
+    flex: 1;
+    background: rgba(99, 91, 255, 0.3);
+    border-radius: 3px 3px 0 0;
+    min-height: 8px;
+  }
+
+  .tpl-stripe .str-bar.current {
+    background: #635bff;
+  }
+
+  .tpl-stripe .str-footer {
+    display: flex;
+    gap: 28px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .tpl-stripe .str-foot-item {
+    font-size: 12px;
+    color: #8898aa;
+  }
+
+  .tpl-stripe .str-foot-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    color: white;
+    font-size: 15px;
+    margin-top: 2px;
+  }
+
+  /* ===== WATERMARK ===== */
+  .watermark {
+    position: absolute;
+    bottom: 12px;
+    right: 16px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    pointer-events: none;
+  }
+
+  .tpl-bank .watermark {
+    color: rgba(0,0,0,0.1);
+  }
+
+  .watermark-diagonal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-30deg);
+    font-size: 20px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.04);
+    letter-spacing: 4px;
+    white-space: nowrap;
+    pointer-events: none;
+    text-transform: uppercase;
+  }
+
+  .tpl-bank .watermark-diagonal {
+    color: rgba(0,0,0,0.03);
+  }
+
+  /* ===== TWEET SECTION ===== */
+  .tweet-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+  }
+
+  .tweet-section h3 {
+    font-size: 14px;
+    color: var(--text-dim);
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+
+  .tweet-templates {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .tweet-tpl {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .tweet-tpl:hover {
+    border-color: var(--accent);
+  }
+
+  .tweet-tpl.selected {
+    border-color: var(--accent);
+    background: rgba(255, 107, 53, 0.05);
+  }
+
+  .tweet-tpl .copy-hint {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 11px;
+    color: var(--text-dim);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .tweet-tpl:hover .copy-hint {
+    opacity: 1;
+  }
+
+  .tweet-tpl .copy-hint.copied {
+    opacity: 1;
+    color: var(--green);
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center;
+    padding: 40px 20px;
+    border-top: 1px solid var(--border);
+    margin-top: 40px;
+  }
+
+  .footer p {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.8;
+  }
+
+  .footer a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  /* ===== TOAST ===== */
+  .toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: var(--green);
+    color: #000;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    z-index: 100;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: none;
+  }
+
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 600px) {
+    .template-picker {
+      grid-template-columns: 1fr;
+    }
+    .controls {
+      padding: 20px;
+    }
+    .tpl-x-revenue, .tpl-bank, .tpl-stripe {
+      padding: 24px 20px;
+    }
+    .tpl-x-revenue .xr-amount,
+    .tpl-bank .bank-amount,
+    .tpl-stripe .str-amount {
+      font-size: 36px;
+    }
+    .amount-input {
+      font-size: 18px;
+    }
+    .tweet-section {
+      padding: 16px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="site-badge">PARODY GENERATOR</div>
+  <h1 class="site-title">億り人ジェネレーター</h1>
+  <p class="site-desc">
+    「月収○○万円達成しました！」系の<strong>架空の収益報告スクショ</strong>を生成するネタサイトです。
+    情報商材屋さんごっこをお楽しみください。
+  </p>
+  <div class="disclaimer">
+    このサイトで生成される画像はすべて<strong>フィクション</strong>です。詐欺・虚偽の広告・他者の誤認を目的とした使用は禁止です。生成画像には透かしが入ります。ネタとしてお楽しみください。
+  </div>
+</header>
+
+<main class="main">
+  <!-- Controls -->
+  <div class="controls">
+    <div class="control-section">
+      <div class="control-label">テンプレート</div>
+      <div class="template-picker">
+        <button class="template-btn active" data-tpl="x-revenue" onclick="selectTemplate('x-revenue')">
+          <span class="t-icon">&#x1D54F;</span>
+          <span class="t-name">X 収益レポート</span>
+          <span class="t-desc">クリエイター収益っぽいやつ</span>
+        </button>
+        <button class="template-btn" data-tpl="bank" onclick="selectTemplate('bank')">
+          <span class="t-icon">&#x1F3E6;</span>
+          <span class="t-name">口座残高</span>
+          <span class="t-desc">銀行アプリ風</span>
+        </button>
+        <button class="template-btn" data-tpl="stripe" onclick="selectTemplate('stripe')">
+          <span class="t-icon">&#x1F4B3;</span>
+          <span class="t-name">決済ダッシュボード</span>
+          <span class="t-desc">Stripe風の売上画面</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="control-section">
+      <div class="control-label">金額</div>
+      <div class="amount-row">
+        <div class="currency-toggle">
+          <button class="currency-btn active" data-cur="JPY" onclick="selectCurrency('JPY')">&#xA5;</button>
+          <button class="currency-btn" data-cur="USD" onclick="selectCurrency('USD')">$</button>
+        </div>
+        <input type="text" class="amount-input" id="amountInput" placeholder="夢の金額を入力" inputmode="numeric">
+      </div>
+      <div class="quick-amounts">
+        <button class="quick-btn" onclick="setAmount(500000)">50万</button>
+        <button class="quick-btn" onclick="setAmount(1234567)">123万</button>
+        <button class="quick-btn" onclick="setAmount(5000000)">500万</button>
+        <button class="quick-btn" onclick="setAmount(12800000)">1,280万</button>
+        <button class="quick-btn" onclick="setAmount(100000000)">1億</button>
+        <button class="quick-btn" onclick="setAmount(999999999)">9.9億</button>
+        <button class="quick-btn" onclick="setAmount(84300000000)">843億</button>
+      </div>
+    </div>
+
+    <div class="control-section">
+      <button class="generate-btn" onclick="generate()">収益報告を生成する</button>
+    </div>
+  </div>
+
+  <!-- Preview -->
+  <div class="preview-section" id="previewSection">
+    <div class="preview-header">
+      <span class="preview-title">&#x1F4F8; プレビュー</span>
+      <div class="action-btns">
+        <button class="action-btn" onclick="downloadImage()">&#x1F4E5; 保存</button>
+        <button class="action-btn x-btn" onclick="shareToX()">&#x1D54F; ポストする</button>
+      </div>
+    </div>
+
+    <div class="screenshot-wrapper" id="screenshotArea">
+      <!-- Templates rendered here -->
+    </div>
+
+    <!-- Tweet templates -->
+    <div class="tweet-section">
+      <h3>&#x1F4DD; 投稿テンプレ（クリックでコピー）</h3>
+      <div class="tweet-templates" id="tweetTemplates"></div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer">
+  <p>
+    このサイトはパロディ目的で作られたネタサイトです。<br>
+    生成される画像はすべてフィクションであり、実在の収益とは一切関係ありません。<br>
+    本当に稼ぎたい人は、ちゃんとしたプロダクトを作りましょう。
+  </p>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+let state = {
+  template: 'x-revenue',
+  currency: 'JPY',
+  amount: 0,
+};
+
+function selectTemplate(tpl) {
+  state.template = tpl;
+  document.querySelectorAll('.template-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`[data-tpl="${tpl}"]`).classList.add('active');
+  if (state.amount > 0) generate();
+}
+
+function selectCurrency(cur) {
+  state.currency = cur;
+  document.querySelectorAll('.currency-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`[data-cur="${cur}"]`).classList.add('active');
+  if (state.amount > 0) generate();
+}
+
+function setAmount(n) {
+  state.amount = n;
+  document.getElementById('amountInput').value = n.toLocaleString();
+  generate();
+}
+
+function parseAmount() {
+  const raw = document.getElementById('amountInput').value.replace(/[,\s¥$]/g, '');
+  return parseInt(raw, 10) || 0;
+}
+
+function fmtAmount(n, cur) {
+  if (cur === 'JPY') {
+    return '¥' + n.toLocaleString();
+  }
+  return '$' + n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function fmtShort(n) {
+  if (n >= 100000000) return (n / 100000000).toFixed(1) + '億';
+  if (n >= 10000) return (n / 10000).toFixed(0) + '万';
+  return n.toLocaleString();
+}
+
+function randomBetween(a, b) {
+  return Math.floor(Math.random() * (b - a + 1)) + a;
+}
+
+function getMonthStr() {
+  const d = new Date();
+  const m = d.getMonth(); // prev month
+  const y = d.getFullYear();
+  const pm = m === 0 ? 12 : m;
+  const py = m === 0 ? y - 1 : y;
+  return `${py}年${pm}月`;
+}
+
+function generate() {
+  state.amount = parseAmount();
+  if (state.amount <= 0) {
+    showToast('金額を入力してください');
+    return;
+  }
+
+  const area = document.getElementById('screenshotArea');
+  const section = document.getElementById('previewSection');
+  section.classList.add('visible');
+
+  const amt = state.amount;
+  const cur = state.currency;
+  const formatted = fmtAmount(amt, cur);
+  const month = getMonthStr();
+
+  if (state.template === 'x-revenue') {
+    const impressions = fmtShort(randomBetween(amt * 8, amt * 20));
+    const followers = fmtShort(randomBetween(5000, 200000));
+    const growth = '+' + randomBetween(15, 280) + '%';
+    area.innerHTML = `
+      <div class="tpl-x-revenue" id="captureTarget">
+        <div class="watermark-diagonal">FAKE / これはフィクションです / PARODY</div>
+        <div class="xr-header">
+          <div class="xr-logo">\uD835\uDD4F</div>
+          <div class="xr-title">Creator Revenue</div>
+        </div>
+        <div class="xr-period">${month}の収益</div>
+        <div class="xr-amount">${formatted}</div>
+        <div class="xr-stats">
+          <div class="xr-stat">
+            インプレッション
+            <div class="xr-stat-val">${impressions}</div>
+          </div>
+          <div class="xr-stat">
+            フォロワー
+            <div class="xr-stat-val">${followers}</div>
+          </div>
+          <div class="xr-stat">
+            前月比
+            <div class="xr-stat-val green">${growth}</div>
+          </div>
+        </div>
+        <div class="watermark">FAKE - 億り人ジェネレーター</div>
+      </div>
+    `;
+  } else if (state.template === 'bank') {
+    const today = new Date();
+    const dateStr = `${today.getFullYear()}/${String(today.getMonth()+1).padStart(2,'0')}/${String(today.getDate()).padStart(2,'0')} ${String(today.getHours()).padStart(2,'0')}:${String(today.getMinutes()).padStart(2,'0')}`;
+    const savings = fmtAmount(Math.floor(amt * 0.3), cur);
+    const monthIn = '+' + fmtAmount(Math.floor(amt * 0.12), cur);
+    area.innerHTML = `
+      <div class="tpl-bank" id="captureTarget">
+        <div class="watermark-diagonal">FAKE / これはフィクションです / PARODY</div>
+        <div class="bank-header">
+          <div class="bank-name"><span class="bank-dot"></span>普通預金</div>
+          <div class="bank-date">${dateStr} 現在</div>
+        </div>
+        <div class="bank-label">残高</div>
+        <div class="bank-amount">${formatted}</div>
+        <div class="bank-sub">
+          <div class="bank-sub-item">
+            積立口座
+            <div class="bank-sub-val">${savings}</div>
+          </div>
+          <div class="bank-sub-item">
+            今月の入金
+            <div class="bank-sub-val plus">${monthIn}</div>
+          </div>
+        </div>
+        <div class="watermark">FAKE - 億り人ジェネレーター</div>
+      </div>
+    `;
+  } else if (state.template === 'stripe') {
+    const change = '+' + randomBetween(20, 350) + '%';
+    const txCount = randomBetween(100, 9999).toLocaleString();
+    const customers = randomBetween(50, 5000).toLocaleString();
+    const bars = Array.from({length: 12}, (_, i) => {
+      const h = i === 11 ? 100 : randomBetween(15, 85);
+      const cls = i === 11 ? 'str-bar current' : 'str-bar';
+      return `<div class="${cls}" style="height:${h}%"></div>`;
+    }).join('');
+    area.innerHTML = `
+      <div class="tpl-stripe" id="captureTarget">
+        <div class="watermark-diagonal">FAKE / これはフィクションです / PARODY</div>
+        <div class="str-header">
+          <div class="str-brand">dashboard</div>
+          <div class="str-badge">Live</div>
+        </div>
+        <div class="str-label">${month} の売上</div>
+        <div class="str-amount">${formatted}</div>
+        <div class="str-change">${change} vs 先月</div>
+        <div class="str-chart">${bars}</div>
+        <div class="str-footer">
+          <div class="str-foot-item">
+            取引数
+            <div class="str-foot-val">${txCount}</div>
+          </div>
+          <div class="str-foot-item">
+            顧客数
+            <div class="str-foot-val">${customers}</div>
+          </div>
+          <div class="str-foot-item">
+            平均単価
+            <div class="str-foot-val">${fmtAmount(Math.floor(amt / randomBetween(50, 500)), cur)}</div>
+          </div>
+        </div>
+        <div class="watermark">FAKE - 億り人ジェネレーター</div>
+      </div>
+    `;
+  }
+
+  updateTweetTemplates();
+  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function updateTweetTemplates() {
+  const amt = state.amount;
+  const cur = state.currency;
+  const formatted = fmtAmount(amt, cur);
+  const short = fmtShort(amt);
+
+  const templates = [
+    `${getMonthStr()}の収益報告です。\n\n${formatted}\n\n正直、もう会社辞めてもいい気がしてます。\n\n#収益報告 #副業`,
+    `副業3ヶ月目。\n月収${short}を達成しました。\n\nやったことはプロフに書いてます。\n（何も書いてない）\n\n#副業で稼ぐ`,
+    `え、まだ会社で消耗してるの？\n\n僕は先月${short}稼ぎました。\n方法？ DMください。\n（DMしても何も来ません）\n\n#脱サラ`,
+    `【${getMonthStr()}実績】\n売上：${formatted}\n労働時間：1日30分\n場所：タイのプール付きヴィラ\n\n嘘です。布団の中です。\n\n#億り人ジェネレーター`,
+    `月収${short}達成したので\n有料note出します。\n\n内容：「このスクショの作り方」\n価格：49,800円\n\n※このスクショはフィクションです\n\n#情報商材 #ネタ`,
+  ];
+
+  const container = document.getElementById('tweetTemplates');
+  container.innerHTML = templates.map((t, i) => `
+    <div class="tweet-tpl" onclick="copyTweet(this, ${i})">
+      ${t.replace(/\n/g, '<br>')}
+      <span class="copy-hint">クリックでコピー</span>
+    </div>
+  `).join('');
+
+  // store raw text
+  window._tweetTexts = templates;
+}
+
+function copyTweet(el, idx) {
+  const text = window._tweetTexts[idx];
+  navigator.clipboard.writeText(text).then(() => {
+    el.querySelector('.copy-hint').textContent = 'コピーしました!';
+    el.querySelector('.copy-hint').classList.add('copied');
+    showToast('テキストをコピーしました');
+    setTimeout(() => {
+      el.querySelector('.copy-hint').textContent = 'クリックでコピー';
+      el.querySelector('.copy-hint').classList.remove('copied');
+    }, 2000);
+  });
+}
+
+async function downloadImage() {
+  const target = document.getElementById('captureTarget');
+  if (!target) return;
+  try {
+    const canvas = await html2canvas(target, {
+      backgroundColor: null,
+      scale: 2,
+      useCORS: true,
+    });
+    const link = document.createElement('a');
+    link.download = '億り人ジェネレーター.png';
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+    showToast('画像を保存しました');
+  } catch(e) {
+    showToast('保存に失敗しました');
+  }
+}
+
+function shareToX() {
+  const text = window._tweetTexts ? window._tweetTexts[3] : '億り人ジェネレーターで収益報告を作りました';
+  const url = window.location.href;
+  const tweetUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(text + '\n\n' + url)}`;
+  window.open(tweetUrl, '_blank');
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('toast');
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+// Format input with commas
+document.getElementById('amountInput').addEventListener('input', function() {
+  let v = this.value.replace(/[^\d]/g, '');
+  if (v) {
+    this.value = parseInt(v, 10).toLocaleString();
+  }
+});
+
+document.getElementById('amountInput').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') generate();
+});
+</script>
+
+</body>
+</html>
