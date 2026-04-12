@@ -3,740 +3,740 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>億り人ジェネレーター - 架空の収益報告メーカー</title>
+<title>億り人ジェネレーター</title>
 <meta name="description" content="架空の収益報告スクリーンショットを生成するネタサイト。情報商材屋ごっこを楽しもう。">
 <meta property="og:title" content="億り人ジェネレーター">
 <meta property="og:description" content="あなたも今日から億り人。架空の収益報告を作って遊ぼう。">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&family=Dela+Gothic+One&family=IBM+Plex+Mono:wght@400;600;700&display=swap');
-
-  :root {
-    --bg: #0c0c14;
-    --surface: #16161f;
-    --surface2: #1e1e2a;
-    --border: #2a2a3a;
-    --text: #e8e6e3;
-    --text-dim: #8888a0;
-    --accent: #ff6b35;
-    --accent2: #ffd166;
-    --green: #06d6a0;
-    --red: #ef476f;
-    --purple: #b388ff;
-  }
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap');
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    font-family: 'Zen Maru Gothic', -apple-system, sans-serif;
-    background: var(--bg);
-    color: var(--text);
+    font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f5f3ef;
+    color: #1a1a1a;
     min-height: 100vh;
-    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
 
   /* ===== HEADER ===== */
-  .header {
-    text-align: center;
-    padding: 60px 20px 40px;
-    position: relative;
-  }
-
-  .header::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 120px;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  }
-
-  .site-badge {
-    display: inline-block;
-    background: var(--accent);
-    color: white;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 4px 14px;
-    border-radius: 20px;
-    margin-bottom: 16px;
-    letter-spacing: 1px;
-  }
-
-  .site-title {
-    font-family: 'Dela Gothic One', sans-serif;
-    font-size: clamp(28px, 6vw, 48px);
-    background: linear-gradient(135deg, var(--accent), var(--accent2));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 12px;
-  }
-
-  .site-desc {
-    font-size: 15px;
-    color: var(--text-dim);
-    max-width: 520px;
+  header {
+    padding: 48px 20px 32px;
+    max-width: 600px;
     margin: 0 auto;
-    line-height: 1.8;
   }
 
-  .site-desc strong {
-    color: var(--accent2);
+  header h1 {
+    font-size: 22px;
+    font-weight: 900;
+    margin-bottom: 8px;
   }
 
-  /* ===== DISCLAIMER ===== */
-  .disclaimer {
-    max-width: 640px;
-    margin: 30px auto 0;
-    background: rgba(239, 71, 111, 0.08);
-    border: 1px solid rgba(239, 71, 111, 0.2);
-    border-radius: 12px;
-    padding: 16px 20px;
-    font-size: 12.5px;
-    color: var(--red);
+  header h1 span {
+    display: inline-block;
+    background: #1a1a1a;
+    color: #f5f3ef;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+    vertical-align: middle;
+    margin-left: 6px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  header p {
+    font-size: 14px;
+    color: #666;
     line-height: 1.7;
-    text-align: left;
   }
 
-  .disclaimer::before {
-    content: '⚠️ ';
+  header p strong { color: #1a1a1a; }
+
+  .notice {
+    margin-top: 16px;
+    font-size: 12px;
+    color: #999;
+    line-height: 1.6;
+    padding-left: 16px;
+    border-left: 2px solid #ddd;
   }
 
   /* ===== MAIN ===== */
-  .main {
-    max-width: 800px;
+  main {
+    max-width: 600px;
     margin: 0 auto;
-    padding: 40px 20px 80px;
+    padding: 0 20px 80px;
   }
 
   /* ===== CONTROLS ===== */
   .controls {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 32px;
     margin-bottom: 32px;
   }
 
-  .control-section {
-    margin-bottom: 24px;
-  }
-
-  .control-section:last-child {
-    margin-bottom: 0;
-  }
-
-  .control-label {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--text-dim);
-    margin-bottom: 10px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-
-  /* Template picker */
-  .template-picker {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-  }
-
-  .template-btn {
-    background: var(--surface2);
-    border: 2px solid var(--border);
-    border-radius: 12px;
-    padding: 16px 12px;
-    color: var(--text);
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.2s;
-    font-family: inherit;
-    font-size: 13px;
-  }
-
-  .template-btn:hover {
-    border-color: var(--accent);
-    background: rgba(255, 107, 53, 0.05);
-  }
-
-  .template-btn.active {
-    border-color: var(--accent);
-    background: rgba(255, 107, 53, 0.1);
-  }
-
-  .template-btn .t-icon {
-    font-size: 28px;
+  label {
     display: block;
-    margin-bottom: 6px;
-  }
-
-  .template-btn .t-name {
-    font-weight: 700;
-    font-size: 13px;
-  }
-
-  .template-btn .t-desc {
-    font-size: 11px;
-    color: var(--text-dim);
-    margin-top: 2px;
-  }
-
-  /* Amount input */
-  .amount-row {
-    display: flex;
-    gap: 10px;
-    align-items: stretch;
-  }
-
-  .currency-toggle {
-    display: flex;
-    border: 2px solid var(--border);
-    border-radius: 10px;
-    overflow: hidden;
-    flex-shrink: 0;
-  }
-
-  .currency-btn {
-    background: var(--surface2);
-    border: none;
-    color: var(--text-dim);
-    padding: 0 16px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .currency-btn.active {
-    background: var(--accent);
-    color: white;
-  }
-
-  .amount-input {
-    flex: 1;
-    background: var(--surface2);
-    border: 2px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 18px;
-    color: var(--text);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 24px;
-    font-weight: 700;
-    outline: none;
-    transition: border-color 0.2s;
-  }
-
-  .amount-input:focus {
-    border-color: var(--accent);
-  }
-
-  .amount-input::placeholder {
-    color: var(--text-dim);
-    font-size: 16px;
-    font-weight: 400;
-  }
-
-  /* Quick amounts */
-  .quick-amounts {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 12px;
-  }
-
-  .quick-btn {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 6px 14px;
-    color: var(--text-dim);
-    font-family: 'IBM Plex Mono', monospace;
     font-size: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-
-  .quick-btn:hover {
-    color: var(--accent);
-    border-color: var(--accent);
-  }
-
-  /* Generate button */
-  .generate-btn {
-    width: 100%;
-    background: linear-gradient(135deg, var(--accent), #ff8c42);
-    border: none;
-    border-radius: 12px;
-    padding: 16px;
-    color: white;
-    font-family: inherit;
-    font-size: 17px;
-    font-weight: 900;
-    cursor: pointer;
-    transition: transform 0.15s, box-shadow 0.15s;
-    letter-spacing: 1px;
-    margin-top: 8px;
-  }
-
-  .generate-btn:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 24px rgba(255, 107, 53, 0.3);
-  }
-
-  .generate-btn:active {
-    transform: translateY(0);
-  }
-
-  /* ===== PREVIEW ===== */
-  .preview-section {
-    display: none;
-  }
-
-  .preview-section.visible {
-    display: block;
-  }
-
-  .preview-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-  }
-
-  .preview-title {
-    font-size: 14px;
-    color: var(--text-dim);
     font-weight: 700;
-  }
-
-  .action-btns {
-    display: flex;
-    gap: 8px;
-  }
-
-  .action-btn {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 10px 20px;
-    color: var(--text);
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .action-btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-
-  .action-btn.x-btn {
-    background: #000;
-    border-color: #333;
-    color: white;
-  }
-
-  .action-btn.x-btn:hover {
-    background: #1a1a1a;
-    border-color: #555;
-  }
-
-  /* ===== SCREENSHOT TEMPLATES ===== */
-  .screenshot-wrapper {
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.4);
-    margin-bottom: 24px;
-  }
-
-  /* --- Template 1: X Revenue --- */
-  .tpl-x-revenue {
-    background: #000;
-    padding: 40px 36px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    position: relative;
-    min-height: 340px;
-  }
-
-  .tpl-x-revenue .xr-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 28px;
-  }
-
-  .tpl-x-revenue .xr-logo {
-    width: 32px;
-    height: 32px;
-    background: white;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-weight: 900;
-    color: black;
-  }
-
-  .tpl-x-revenue .xr-title {
-    color: #e7e9ea;
-    font-size: 18px;
-    font-weight: 700;
-  }
-
-  .tpl-x-revenue .xr-period {
-    color: #71767b;
-    font-size: 14px;
+    color: #999;
     margin-bottom: 8px;
   }
 
-  .tpl-x-revenue .xr-amount {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    font-size: 52px;
-    font-weight: 800;
-    color: #e7e9ea;
+  .tpl-picker {
+    display: flex;
+    gap: 6px;
     margin-bottom: 20px;
+  }
+
+  .tpl-btn {
+    flex: 1;
+    background: white;
+    border: 1.5px solid #e0ddd8;
+    border-radius: 8px;
+    padding: 12px 8px;
+    cursor: pointer;
+    text-align: center;
+    transition: border-color 0.15s;
+    font-family: inherit;
+  }
+
+  .tpl-btn:hover { border-color: #aaa; }
+
+  .tpl-btn.on {
+    border-color: #1a1a1a;
+    background: #1a1a1a;
+    color: white;
+  }
+
+  .tpl-btn .ico { font-size: 20px; display: block; margin-bottom: 4px; }
+  .tpl-btn .nm { font-size: 12px; font-weight: 700; }
+
+  .input-row {
+    display: flex;
+    gap: 0;
+    margin-bottom: 10px;
+  }
+
+  .cur-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    flex-shrink: 0;
+  }
+
+  .cur-btn {
+    background: white;
+    border: 1.5px solid #e0ddd8;
+    color: #999;
+    width: 44px;
+    height: 28px;
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+
+  .cur-btn:first-child {
+    border-radius: 8px 0 0 0;
+    border-bottom: none;
+  }
+
+  .cur-btn:last-child {
+    border-radius: 0 0 0 8px;
+  }
+
+  .cur-btn.on {
+    background: #1a1a1a;
+    border-color: #1a1a1a;
+    color: white;
+  }
+
+  .amt-input {
+    flex: 1;
+    background: white;
+    border: 1.5px solid #e0ddd8;
+    border-left: none;
+    border-radius: 0 8px 8px 0;
+    padding: 12px 16px;
+    font-family: -apple-system, system-ui, sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1a1a;
+    outline: none;
+    min-width: 0;
+  }
+
+  .amt-input:focus { border-color: #1a1a1a; }
+
+  .amt-input::placeholder {
+    color: #ccc;
+    font-size: 15px;
+    font-weight: 400;
+  }
+
+  .quick {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .q-btn {
+    background: white;
+    border: 1px solid #e0ddd8;
+    border-radius: 6px;
+    padding: 4px 12px;
+    font-family: inherit;
+    font-size: 12px;
+    color: #666;
+    cursor: pointer;
+  }
+
+  .q-btn:hover { border-color: #1a1a1a; color: #1a1a1a; }
+
+  .gen-btn {
+    width: 100%;
+    background: #1a1a1a;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    color: white;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .gen-btn:hover { background: #333; }
+
+  /* ===== PREVIEW ===== */
+  .preview { display: none; }
+  .preview.vis { display: block; }
+
+  .pv-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .pv-bar span { font-size: 13px; color: #999; font-weight: 500; }
+
+  .pv-actions { display: flex; gap: 6px; }
+
+  .pv-btn {
+    background: white;
+    border: 1px solid #e0ddd8;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a1a;
+    cursor: pointer;
+  }
+
+  .pv-btn:hover { border-color: #1a1a1a; }
+
+  .pv-btn.xpost {
+    background: #1a1a1a;
+    border-color: #1a1a1a;
+    color: white;
+  }
+
+  .pv-btn.xpost:hover { background: #333; }
+
+  .ss-wrap {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    margin-bottom: 20px;
+  }
+
+  /* ====== TPL 1: X Creator Revenue (mobile app style) ====== */
+  .tpl-x {
+    background: #000;
+    font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+    position: relative;
+    padding: 0;
+    color: #e7e9ea;
+    width: 100%;
+    aspect-ratio: 9/14;
+    max-height: 520px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .tpl-x .x-nav {
+    display: flex;
+    align-items: center;
+    padding: 14px 16px;
+    gap: 16px;
+    border-bottom: 0.5px solid #2f3336;
+  }
+
+  .tpl-x .x-nav .x-close {
+    font-size: 20px;
+    color: #e7e9ea;
+    font-weight: 300;
+  }
+
+  .tpl-x .x-nav .x-navtitle {
+    font-size: 16px;
+    font-weight: 700;
+    color: #e7e9ea;
+  }
+
+  .tpl-x .x-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 24px 20px;
+  }
+
+  .tpl-x .x-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #2f3336;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+  }
+
+  .tpl-x .x-handle {
+    font-size: 14px;
+    color: #71767b;
+    margin-bottom: 28px;
+  }
+
+  .tpl-x .x-entries {
+    width: 100%;
+    text-align: left;
+  }
+
+  .tpl-x .x-entry {
+    padding: 16px 0;
+    border-top: 0.5px solid #2f3336;
+  }
+
+  .tpl-x .x-entry-amt {
+    font-size: 22px;
+    font-weight: 400;
+    color: #e7e9ea;
+    margin-bottom: 4px;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .tpl-x .x-entry-period {
+    font-size: 14px;
+    color: #71767b;
+  }
+
+  /* ====== TPL 2: Bank App (Japanese banking app style) ====== */
+  .tpl-bank {
+    background: #f7f6f3;
+    font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+    position: relative;
+    width: 100%;
+    aspect-ratio: 9/14;
+    max-height: 520px;
+    display: flex;
+    flex-direction: column;
+    color: #333;
+  }
+
+  .tpl-bank .bk-header {
+    background: #1b6b3a;
+    padding: 16px 16px 14px;
+    color: white;
+    text-align: center;
+  }
+
+  .tpl-bank .bk-header-date {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: 0.85;
+  }
+
+  .tpl-bank .bk-header-note {
+    font-size: 11px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 6px;
+    padding: 6px 10px;
+    margin-top: 8px;
+    line-height: 1.4;
+    text-align: left;
+  }
+
+  .tpl-bank .bk-subheader {
+    background: #f7f6f3;
+    padding: 10px 16px;
+    text-align: center;
+    font-size: 13px;
+    color: #888;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .tpl-bank .bk-card {
+    background: white;
+    margin: 8px 16px;
+    border-radius: 10px;
+    padding: 18px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  }
+
+  .tpl-bank .bk-card-label {
+    font-size: 12px;
+    color: #1b6b3a;
+    font-weight: 700;
+    margin-bottom: 2px;
+  }
+
+  .tpl-bank .bk-card-type {
+    font-size: 15px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .tpl-bank .bk-card-branch {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 10px;
+  }
+
+  .tpl-bank .bk-card-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .tpl-bank .bk-amount {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', system-ui, sans-serif;
+    font-size: 34px;
+    font-weight: 700;
+    color: #1a1a1a;
     letter-spacing: -0.5px;
     font-variant-numeric: tabular-nums;
   }
 
-  .tpl-x-revenue .xr-stats {
-    display: flex;
-    gap: 32px;
+  .tpl-bank .bk-amount-yen {
+    font-size: 18px;
+    font-weight: 500;
+    color: #666;
+    margin-left: 2px;
   }
 
-  .tpl-x-revenue .xr-stat {
-    color: #71767b;
+  .tpl-bank .bk-hide-btn {
+    font-size: 12px;
+    color: #666;
+    background: #f0efec;
+    border-radius: 6px;
+    padding: 5px 14px;
+    font-weight: 500;
+  }
+
+  .tpl-bank .bk-link {
+    text-align: right;
+    padding: 10px 16px;
     font-size: 13px;
+    color: #1b6b3a;
+    font-weight: 700;
   }
 
-  .tpl-x-revenue .xr-stat-val {
-    color: #1d9bf0;
-    font-weight: 700;
+  .tpl-bank .bk-section {
+    padding: 14px 16px 8px;
     font-size: 15px;
-    margin-top: 2px;
-    font-variant-numeric: tabular-nums;
+    font-weight: 900;
+    color: #333;
   }
 
-  .tpl-x-revenue .xr-stat-val.green {
-    color: #00ba7c;
+  .tpl-bank .bk-mf {
+    margin: 0 16px;
+    background: white;
+    border-radius: 10px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
   }
 
-  /* --- Template 2: Bank Balance --- */
-  .tpl-bank {
-    background: linear-gradient(170deg, #f8f9fa 0%, #e9ecef 100%);
-    padding: 36px 36px 32px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    position: relative;
-    min-height: 340px;
-    color: #212529;
-  }
-
-  .tpl-bank .bank-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 28px;
-  }
-
-  .tpl-bank .bank-name {
-    font-size: 16px;
-    font-weight: 700;
-    color: #495057;
+  .tpl-bank .bk-mf-header {
     display: flex;
     align-items: center;
     gap: 8px;
+    margin-bottom: 10px;
   }
 
-  .tpl-bank .bank-dot {
-    width: 10px;
-    height: 10px;
-    background: #40c057;
-    border-radius: 50%;
-  }
-
-  .tpl-bank .bank-date {
-    font-size: 13px;
-    color: #868e96;
-  }
-
-  .tpl-bank .bank-label {
-    font-size: 13px;
-    color: #868e96;
-    margin-bottom: 6px;
-  }
-
-  .tpl-bank .bank-amount {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    font-size: 48px;
-    font-weight: 800;
-    color: #212529;
-    margin-bottom: 24px;
-    letter-spacing: -0.5px;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .tpl-bank .bank-sub {
-    display: flex;
-    gap: 24px;
-    padding-top: 20px;
-    border-top: 1px solid #dee2e6;
-  }
-
-  .tpl-bank .bank-sub-item {
-    font-size: 13px;
-    color: #868e96;
-  }
-
-  .tpl-bank .bank-sub-val {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  .tpl-bank .bk-mf-label {
+    font-size: 14px;
     font-weight: 700;
-    color: #212529;
-    font-size: 16px;
-    margin-top: 2px;
-    font-variant-numeric: tabular-nums;
+    color: #333;
   }
 
-  .tpl-bank .bank-sub-val.plus {
-    color: #40c057;
+  .tpl-bank .bk-mf-brand {
+    font-size: 11px;
+    color: #999;
+    font-weight: 500;
   }
 
-  /* --- Template 3: Stripe Dashboard --- */
-  .tpl-stripe {
-    background: #0a2540;
-    padding: 36px;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    position: relative;
-    min-height: 340px;
-    color: white;
-  }
-
-  .tpl-stripe .str-header {
+  .tpl-bank .bk-mf-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 28px;
+    padding: 8px 0;
+    border-top: 1px solid #f0efec;
   }
 
-  .tpl-stripe .str-brand {
-    font-size: 22px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    color: #635bff;
-  }
-
-  .tpl-stripe .str-badge {
-    background: rgba(99, 91, 255, 0.15);
-    color: #a39dff;
-    font-size: 12px;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-weight: 600;
-  }
-
-  .tpl-stripe .str-label {
+  .tpl-bank .bk-mf-amount {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', system-ui, sans-serif;
     font-size: 14px;
-    color: #8898aa;
-    margin-bottom: 6px;
-  }
-
-  .tpl-stripe .str-amount {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
-    font-size: 48px;
-    font-weight: 800;
-    color: white;
-    margin-bottom: 6px;
-    letter-spacing: -0.5px;
+    color: #999;
     font-variant-numeric: tabular-nums;
   }
 
-  .tpl-stripe .str-change {
-    font-size: 14px;
-    color: #3ecf8e;
+  .tpl-bank .bk-mf-connect {
+    font-size: 13px;
+    color: #1b6b3a;
+    font-weight: 700;
+    background: #e8f5e9;
+    padding: 5px 14px;
+    border-radius: 20px;
+  }
+
+  /* ====== TPL 3: Stripe Dashboard ====== */
+  .tpl-stripe {
+    background: white;
+    font-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+    position: relative;
+    padding: 28px 24px;
+    min-height: 360px;
+    color: #1a1a1a;
+  }
+
+  .tpl-stripe .st-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin-bottom: 24px;
+  }
+
+  .tpl-stripe .st-brand {
+    font-size: 18px;
+    font-weight: 700;
+    color: #635bff;
+    letter-spacing: -0.3px;
+  }
+
+  .tpl-stripe .st-live {
+    font-size: 12px;
+    color: #635bff;
+    background: #f0eeff;
+    padding: 3px 10px;
+    border-radius: 12px;
     font-weight: 600;
   }
 
-  .tpl-stripe .str-chart {
+  .tpl-stripe .st-tabs {
     display: flex;
-    align-items: flex-end;
-    gap: 6px;
-    height: 60px;
+    gap: 20px;
     margin-bottom: 20px;
+    border-bottom: 1px solid #e6e6e6;
+    padding-bottom: 10px;
   }
 
-  .tpl-stripe .str-bar {
-    flex: 1;
-    background: rgba(99, 91, 255, 0.3);
-    border-radius: 3px 3px 0 0;
-    min-height: 8px;
+  .tpl-stripe .st-tab {
+    font-size: 14px;
+    color: #999;
+    font-weight: 500;
   }
 
-  .tpl-stripe .str-bar.current {
+  .tpl-stripe .st-tab.active {
+    color: #1a1a1a;
+    font-weight: 700;
+    position: relative;
+  }
+
+  .tpl-stripe .st-tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -11px;
+    left: 0; right: 0;
+    height: 2px;
     background: #635bff;
   }
 
-  .tpl-stripe .str-footer {
-    display: flex;
-    gap: 28px;
-    padding-top: 16px;
-    border-top: 1px solid rgba(255,255,255,0.08);
+  .tpl-stripe .st-period {
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 4px;
   }
 
-  .tpl-stripe .str-foot-item {
-    font-size: 12px;
-    color: #8898aa;
-  }
-
-  .tpl-stripe .str-foot-val {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  .tpl-stripe .st-amount {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', system-ui, sans-serif;
+    font-size: 42px;
     font-weight: 700;
-    color: white;
+    color: #1a1a1a;
+    letter-spacing: -1px;
+    font-variant-numeric: tabular-nums;
+    margin-bottom: 4px;
+  }
+
+  .tpl-stripe .st-change {
+    font-size: 13px;
+    color: #30b566;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+
+  .tpl-stripe .st-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    height: 56px;
+    margin-bottom: 20px;
+  }
+
+  .tpl-stripe .st-bar {
+    flex: 1;
+    background: #e8e5ff;
+    border-radius: 2px 2px 0 0;
+    min-height: 4px;
+  }
+
+  .tpl-stripe .st-bar.hi {
+    background: #635bff;
+  }
+
+  .tpl-stripe .st-foot {
+    display: flex;
+    gap: 24px;
+    padding-top: 14px;
+    border-top: 1px solid #f0f0f0;
+  }
+
+  .tpl-stripe .st-fitem { font-size: 12px; color: #999; }
+
+  .tpl-stripe .st-fval {
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', system-ui, sans-serif;
+    font-weight: 600;
+    color: #1a1a1a;
     font-size: 15px;
     margin-top: 2px;
     font-variant-numeric: tabular-nums;
   }
 
-  /* ===== WATERMARK ===== */
-  .watermark {
+  /* ===== WATERMARKS ===== */
+  .wm {
     position: absolute;
-    bottom: 12px;
-    right: 16px;
-    font-size: 11px;
-    color: rgba(255,255,255,0.2);
+    bottom: 10px;
+    right: 14px;
+    font-size: 10px;
+    color: rgba(255,255,255,0.18);
     font-weight: 600;
-    letter-spacing: 0.5px;
     pointer-events: none;
+    font-family: -apple-system, system-ui, sans-serif;
   }
 
-  .tpl-bank .watermark {
-    color: rgba(0,0,0,0.1);
+  .tpl-bank .wm, .tpl-stripe .wm {
+    color: rgba(0,0,0,0.07);
   }
 
-  .watermark-diagonal {
+  .wm-diag {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) rotate(-30deg);
-    font-size: 20px;
+    transform: translate(-50%, -50%) rotate(-28deg);
+    font-size: 18px;
     font-weight: 900;
-    color: rgba(255,255,255,0.04);
-    letter-spacing: 4px;
+    color: rgba(255,255,255,0.035);
+    letter-spacing: 3px;
     white-space: nowrap;
     pointer-events: none;
-    text-transform: uppercase;
+    font-family: -apple-system, system-ui, sans-serif;
   }
 
-  .tpl-bank .watermark-diagonal {
-    color: rgba(0,0,0,0.03);
+  .tpl-bank .wm-diag, .tpl-stripe .wm-diag {
+    color: rgba(0,0,0,0.025);
   }
 
-  /* ===== TWEET SECTION ===== */
-  .tweet-section {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 24px;
-    margin-bottom: 24px;
+  /* ===== TWEET TEMPLATES ===== */
+  .tweets {
+    margin-bottom: 20px;
   }
 
-  .tweet-section h3 {
-    font-size: 14px;
-    color: var(--text-dim);
-    margin-bottom: 12px;
-    font-weight: 700;
+  .tweets h3 {
+    font-size: 13px;
+    color: #999;
+    font-weight: 500;
+    margin-bottom: 8px;
   }
 
-  .tweet-templates {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .tweet-tpl {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 14px 16px;
-    font-size: 14px;
+  .tw {
+    background: white;
+    border: 1px solid #e0ddd8;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 13px;
     line-height: 1.6;
-    color: var(--text);
+    color: #333;
     cursor: pointer;
-    transition: all 0.2s;
+    margin-bottom: 6px;
     position: relative;
+    transition: border-color 0.15s;
   }
 
-  .tweet-tpl:hover {
-    border-color: var(--accent);
-  }
+  .tw:hover { border-color: #aaa; }
 
-  .tweet-tpl.selected {
-    border-color: var(--accent);
-    background: rgba(255, 107, 53, 0.05);
-  }
-
-  .tweet-tpl .copy-hint {
+  .tw .cp {
     position: absolute;
     top: 8px;
-    right: 12px;
+    right: 10px;
     font-size: 11px;
-    color: var(--text-dim);
+    color: #ccc;
     opacity: 0;
-    transition: opacity 0.2s;
+    transition: opacity 0.15s;
   }
 
-  .tweet-tpl:hover .copy-hint {
-    opacity: 1;
-  }
-
-  .tweet-tpl .copy-hint.copied {
-    opacity: 1;
-    color: var(--green);
-  }
+  .tw:hover .cp { opacity: 1; }
+  .tw .cp.ok { opacity: 1; color: #30b566; }
 
   /* ===== FOOTER ===== */
-  .footer {
-    text-align: center;
-    padding: 40px 20px;
-    border-top: 1px solid var(--border);
-    margin-top: 40px;
-  }
-
-  .footer p {
-    font-size: 13px;
-    color: var(--text-dim);
-    line-height: 1.8;
-  }
-
-  .footer a {
-    color: var(--accent);
-    text-decoration: none;
+  footer {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px 20px 48px;
+    font-size: 12px;
+    color: #bbb;
+    line-height: 1.7;
+    border-top: 1px solid #e0ddd8;
   }
 
   /* ===== TOAST ===== */
   .toast {
     position: fixed;
-    bottom: 30px;
+    bottom: 24px;
     left: 50%;
-    transform: translateX(-50%) translateY(100px);
-    background: var(--green);
-    color: #000;
-    padding: 12px 24px;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 700;
+    transform: translateX(-50%) translateY(80px);
+    background: #1a1a1a;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
     z-index: 100;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
     pointer-events: none;
   }
 
@@ -744,383 +744,334 @@
     transform: translateX(-50%) translateY(0);
   }
 
-  /* ===== RESPONSIVE ===== */
-  @media (max-width: 600px) {
-    .template-picker {
-      grid-template-columns: 1fr;
-    }
-    .controls {
-      padding: 20px;
-    }
-    .tpl-x-revenue, .tpl-bank, .tpl-stripe {
-      padding: 24px 20px;
-    }
-    .tpl-x-revenue .xr-amount,
-    .tpl-bank .bank-amount,
-    .tpl-stripe .str-amount {
-      font-size: 36px;
-    }
-    .amount-input {
-      font-size: 18px;
-    }
-    .tweet-section {
-      padding: 16px;
-    }
+  @media (max-width: 500px) {
+    .tpl-picker { flex-direction: column; }
+    .amt-input { font-size: 22px; }
+    .tpl-x .x-entry-amt { font-size: 18px; }
+    .tpl-bank .bk-amount { font-size: 28px; }
+    .tpl-stripe .st-amount { font-size: 32px; }
   }
 </style>
 </head>
 <body>
 
-<header class="header">
-  <div class="site-badge">PARODY GENERATOR</div>
-  <h1 class="site-title">億り人ジェネレーター</h1>
-  <p class="site-desc">
-    「月収○○万円達成しました！」系の<strong>架空の収益報告スクショ</strong>を生成するネタサイトです。
-    情報商材屋さんごっこをお楽しみください。
-  </p>
-  <div class="disclaimer">
-    このサイトで生成される画像はすべて<strong>フィクション</strong>です。詐欺・虚偽の広告・他者の誤認を目的とした使用は禁止です。生成画像には透かしが入ります。ネタとしてお楽しみください。
-  </div>
+<header>
+  <h1>億り人ジェネレーター <span>PARODY</span></h1>
+  <p>架空の<strong>収益報告スクショ</strong>を作れるネタサイトです。<br>情報商材屋さんごっこをどうぞ。</p>
+  <div class="notice">生成画像はフィクションです。透かし入り。詐欺・虚偽広告目的の使用禁止。</div>
 </header>
 
-<main class="main">
-  <!-- Controls -->
+<main>
   <div class="controls">
-    <div class="control-section">
-      <div class="control-label">テンプレート</div>
-      <div class="template-picker">
-        <button class="template-btn active" data-tpl="x-revenue" onclick="selectTemplate('x-revenue')">
-          <span class="t-icon">&#x1D54F;</span>
-          <span class="t-name">X 収益レポート</span>
-          <span class="t-desc">クリエイター収益っぽいやつ</span>
-        </button>
-        <button class="template-btn" data-tpl="bank" onclick="selectTemplate('bank')">
-          <span class="t-icon">&#x1F3E6;</span>
-          <span class="t-name">口座残高</span>
-          <span class="t-desc">銀行アプリ風</span>
-        </button>
-        <button class="template-btn" data-tpl="stripe" onclick="selectTemplate('stripe')">
-          <span class="t-icon">&#x1F4B3;</span>
-          <span class="t-name">決済ダッシュボード</span>
-          <span class="t-desc">Stripe風の売上画面</span>
-        </button>
-      </div>
+    <label>テンプレート</label>
+    <div class="tpl-picker">
+      <button class="tpl-btn on" data-t="x" onclick="pickTpl('x')">
+        <span class="ico">&#x1D54F;</span>
+        <span class="nm">X 収益</span>
+      </button>
+      <button class="tpl-btn" data-t="bank" onclick="pickTpl('bank')">
+        <span class="ico">&#x1F3E6;</span>
+        <span class="nm">銀行口座</span>
+      </button>
+      <button class="tpl-btn" data-t="stripe" onclick="pickTpl('stripe')">
+        <span class="ico">&#x1F4B3;</span>
+        <span class="nm">決済ダッシュボード</span>
+      </button>
     </div>
 
-    <div class="control-section">
-      <div class="control-label">金額</div>
-      <div class="amount-row">
-        <div class="currency-toggle">
-          <button class="currency-btn active" data-cur="JPY" onclick="selectCurrency('JPY')">&#xA5;</button>
-          <button class="currency-btn" data-cur="USD" onclick="selectCurrency('USD')">$</button>
-        </div>
-        <input type="text" class="amount-input" id="amountInput" placeholder="夢の金額を入力" inputmode="numeric">
+    <label>金額</label>
+    <div class="input-row">
+      <div class="cur-btns">
+        <button class="cur-btn on" data-c="JPY" onclick="pickCur('JPY')">&#xA5;</button>
+        <button class="cur-btn" data-c="USD" onclick="pickCur('USD')">$</button>
       </div>
-      <div class="quick-amounts">
-        <button class="quick-btn" onclick="setAmount(500000)">50万</button>
-        <button class="quick-btn" onclick="setAmount(1234567)">123万</button>
-        <button class="quick-btn" onclick="setAmount(5000000)">500万</button>
-        <button class="quick-btn" onclick="setAmount(12800000)">1,280万</button>
-        <button class="quick-btn" onclick="setAmount(100000000)">1億</button>
-        <button class="quick-btn" onclick="setAmount(999999999)">9.9億</button>
-        <button class="quick-btn" onclick="setAmount(84300000000)">843億</button>
-      </div>
+      <input type="text" class="amt-input" id="amtIn" placeholder="金額を入力" inputmode="numeric">
     </div>
 
-    <div class="control-section">
-      <button class="generate-btn" onclick="generate()">収益報告を生成する</button>
+    <div class="quick">
+      <button class="q-btn" onclick="setAmt(500000)">50万</button>
+      <button class="q-btn" onclick="setAmt(1234567)">123万</button>
+      <button class="q-btn" onclick="setAmt(5000000)">500万</button>
+      <button class="q-btn" onclick="setAmt(12800000)">1,280万</button>
+      <button class="q-btn" onclick="setAmt(100000000)">1億</button>
+      <button class="q-btn" onclick="setAmt(999999999)">9.9億</button>
+      <button class="q-btn" onclick="setAmt(84300000000)">843億</button>
     </div>
+
+    <button class="gen-btn" onclick="gen()">生成する</button>
   </div>
 
-  <!-- Preview -->
-  <div class="preview-section" id="previewSection">
-    <div class="preview-header">
-      <span class="preview-title">&#x1F4F8; プレビュー</span>
-      <div class="action-btns">
-        <button class="action-btn" onclick="downloadImage()">&#x1F4E5; 保存</button>
-        <button class="action-btn x-btn" onclick="shareToX()">&#x1D54F; ポストする</button>
+  <div class="preview" id="pv">
+    <div class="pv-bar">
+      <span>プレビュー</span>
+      <div class="pv-actions">
+        <button class="pv-btn" onclick="dl()">保存</button>
+        <button class="pv-btn xpost" onclick="postX()">&#x1D54F; ポスト</button>
       </div>
     </div>
+    <div class="ss-wrap" id="ssArea"></div>
 
-    <div class="screenshot-wrapper" id="screenshotArea">
-      <!-- Templates rendered here -->
-    </div>
-
-    <!-- Tweet templates -->
-    <div class="tweet-section">
-      <h3>&#x1F4DD; 投稿テンプレ（クリックでコピー）</h3>
-      <div class="tweet-templates" id="tweetTemplates"></div>
+    <div class="tweets">
+      <h3>投稿テンプレ（タップでコピー）</h3>
+      <div id="twArea"></div>
     </div>
   </div>
 </main>
 
-<footer class="footer">
-  <p>
-    このサイトはパロディ目的で作られたネタサイトです。<br>
-    生成される画像はすべてフィクションであり、実在の収益とは一切関係ありません。<br>
-    本当に稼ぎたい人は、ちゃんとしたプロダクトを作りましょう。
-  </p>
+<footer>
+  このサイトはパロディです。生成画像はフィクションであり実在の収益とは無関係です。<br>
+  本当に稼ぎたいなら、ちゃんとしたプロダクトを作りましょう。
 </footer>
 
 <div class="toast" id="toast"></div>
 
 <script>
-let state = {
-  template: 'x-revenue',
-  currency: 'JPY',
-  amount: 0,
-};
+const S = { tpl: 'x', cur: 'JPY', amt: 0 };
 
-function selectTemplate(tpl) {
-  state.template = tpl;
-  document.querySelectorAll('.template-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector(`[data-tpl="${tpl}"]`).classList.add('active');
-  if (state.amount > 0) generate();
+function pickTpl(t) {
+  S.tpl = t;
+  document.querySelectorAll('.tpl-btn').forEach(b => b.classList.toggle('on', b.dataset.t === t));
+  if (S.amt > 0) gen();
 }
 
-function selectCurrency(cur) {
-  state.currency = cur;
-  document.querySelectorAll('.currency-btn').forEach(b => b.classList.remove('active'));
-  document.querySelector(`[data-cur="${cur}"]`).classList.add('active');
-  if (state.amount > 0) generate();
+function pickCur(c) {
+  S.cur = c;
+  document.querySelectorAll('.cur-btn').forEach(b => b.classList.toggle('on', b.dataset.c === c));
+  if (S.amt > 0) gen();
 }
 
-function setAmount(n) {
-  state.amount = n;
-  document.getElementById('amountInput').value = n.toLocaleString();
-  generate();
+function setAmt(n) {
+  S.amt = n;
+  document.getElementById('amtIn').value = n.toLocaleString();
+  gen();
 }
 
-function parseAmount() {
-  const raw = document.getElementById('amountInput').value.replace(/[,\s¥$]/g, '');
-  return parseInt(raw, 10) || 0;
+function parseAmt() {
+  return parseInt(document.getElementById('amtIn').value.replace(/\D/g, ''), 10) || 0;
 }
 
-function fmtAmount(n, cur) {
-  if (cur === 'JPY') {
-    return '¥' + n.toLocaleString();
-  }
-  return '$' + n.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-}
-
-function fmtShort(n) {
-  if (n >= 100000000) return (n / 100000000).toFixed(1) + '億';
-  if (n >= 10000) return (n / 10000).toFixed(0) + '万';
+function fmt(n, c) {
+  if (c === 'USD') return '$' + n.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
   return n.toLocaleString();
 }
 
-function randomBetween(a, b) {
-  return Math.floor(Math.random() * (b - a + 1)) + a;
+function fmtYen(n) { return n.toLocaleString(); }
+
+function fmtShort(n) {
+  if (n >= 1e8) return (n/1e8).toFixed(1) + '億';
+  if (n >= 1e4) return Math.floor(n/1e4) + '万';
+  return n.toLocaleString();
 }
 
-function getMonthStr() {
+function rand(a, b) { return Math.floor(Math.random() * (b - a + 1)) + a; }
+
+function monthStr() {
+  const d = new Date(), m = d.getMonth() || 12, y = m === 12 ? d.getFullYear()-1 : d.getFullYear();
+  return `${y}年${m}月`;
+}
+
+function dateRange(idx) {
   const d = new Date();
-  const m = d.getMonth(); // prev month
   const y = d.getFullYear();
-  const pm = m === 0 ? 12 : m;
-  const py = m === 0 ? y - 1 : y;
-  return `${py}年${pm}月`;
+  const m = d.getMonth(); // 0-indexed, current month
+  // go back idx periods of 14 days
+  const end = new Date(y, m, 1);
+  end.setDate(end.getDate() - idx * 14);
+  const start = new Date(end);
+  start.setDate(start.getDate() - 14);
+  const f = d => `${d.getFullYear()}年${d.getMonth()+1}月${d.getDate()}日`;
+  return `お支払い期間: ${f(start)}〜${f(end)}`;
 }
 
-function generate() {
-  state.amount = parseAmount();
-  if (state.amount <= 0) {
-    showToast('金額を入力してください');
-    return;
-  }
+function nowStr() {
+  const d = new Date();
+  return `${d.getFullYear()}.${d.getMonth()+1}.${d.getDate()} ${d.getHours() < 12 ? '午前' : '午後'} ${d.getHours() > 12 ? d.getHours()-12 : d.getHours()}:${String(d.getMinutes()).padStart(2,'0')}`;
+}
 
-  const area = document.getElementById('screenshotArea');
-  const section = document.getElementById('previewSection');
-  section.classList.add('visible');
+function gen() {
+  S.amt = parseAmt();
+  if (S.amt <= 0) { toast('金額を入力してください'); return; }
 
-  const amt = state.amount;
-  const cur = state.currency;
-  const formatted = fmtAmount(amt, cur);
-  const month = getMonthStr();
+  const area = document.getElementById('ssArea');
+  const pv = document.getElementById('pv');
+  pv.classList.add('vis');
+  const a = S.amt, c = S.cur;
 
-  if (state.template === 'x-revenue') {
-    const impressions = fmtShort(randomBetween(amt * 8, amt * 20));
-    const followers = fmtShort(randomBetween(5000, 200000));
-    const growth = '+' + randomBetween(15, 280) + '%';
+  if (S.tpl === 'x') {
+    // Generate 2-4 payment entries that look realistic
+    const entries = [];
+    const mainAmt = c === 'USD' ? fmt(a, c) : '+$' + (a / 150).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
+    // If JPY, convert to USD-like display (X pays in USD)
+    const usdAmt = c === 'USD' ? a : a / 150;
+    const e1 = '+$' + usdAmt.toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
+    const e2 = '+$' + (usdAmt * (rand(60, 95) / 100)).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
+    const e3 = '+$' + (usdAmt * (rand(30, 70) / 100)).toLocaleString(undefined, {minimumFractionDigits:2, maximumFractionDigits:2});
+
     area.innerHTML = `
-      <div class="tpl-x-revenue" id="captureTarget">
-        <div class="watermark-diagonal">FAKE / これはフィクションです / PARODY</div>
-        <div class="xr-header">
-          <div class="xr-logo">\uD835\uDD4F</div>
-          <div class="xr-title">Creator Revenue</div>
+      <div class="tpl-x" id="cap">
+        <div class="wm-diag">FAKE / これはフィクションです / PARODY</div>
+        <div class="x-nav">
+          <span class="x-close">&times;</span>
+          <span class="x-navtitle">クリエイター収益ダッシュボード / X</span>
         </div>
-        <div class="xr-period">${month}の収益</div>
-        <div class="xr-amount">${formatted}</div>
-        <div class="xr-stats">
-          <div class="xr-stat">
-            インプレッション
-            <div class="xr-stat-val">${impressions}</div>
-          </div>
-          <div class="xr-stat">
-            フォロワー
-            <div class="xr-stat-val">${followers}</div>
-          </div>
-          <div class="xr-stat">
-            前月比
-            <div class="xr-stat-val green">${growth}</div>
+        <div class="x-body">
+          <div class="x-avatar">&#x1F436;</div>
+          <div class="x-handle">@your_handle</div>
+          <div class="x-entries">
+            <div class="x-entry">
+              <div class="x-entry-amt">${e1}</div>
+              <div class="x-entry-period">${dateRange(0)}</div>
+            </div>
+            <div class="x-entry">
+              <div class="x-entry-amt">${e2}</div>
+              <div class="x-entry-period">${dateRange(1)}</div>
+            </div>
+            <div class="x-entry">
+              <div class="x-entry-amt">${e3}</div>
+              <div class="x-entry-period">${dateRange(2)}</div>
+            </div>
           </div>
         </div>
-        <div class="watermark">FAKE - 億り人ジェネレーター</div>
-      </div>
-    `;
-  } else if (state.template === 'bank') {
-    const today = new Date();
-    const dateStr = `${today.getFullYear()}/${String(today.getMonth()+1).padStart(2,'0')}/${String(today.getDate()).padStart(2,'0')} ${String(today.getHours()).padStart(2,'0')}:${String(today.getMinutes()).padStart(2,'0')}`;
-    const savings = fmtAmount(Math.floor(amt * 0.3), cur);
-    const monthIn = '+' + fmtAmount(Math.floor(amt * 0.12), cur);
+        <div class="wm">FAKE - 億り人ジェネレーター</div>
+      </div>`;
+  } else if (S.tpl === 'bank') {
+    const amtNum = c === 'USD' ? Math.floor(a * 150) : a;
+    const branchNum = rand(100, 999);
+    const acctNum = rand(1000000, 9999999);
     area.innerHTML = `
-      <div class="tpl-bank" id="captureTarget">
-        <div class="watermark-diagonal">FAKE / これはフィクションです / PARODY</div>
-        <div class="bank-header">
-          <div class="bank-name"><span class="bank-dot"></span>普通預金</div>
-          <div class="bank-date">${dateStr} 現在</div>
+      <div class="tpl-bank" id="cap">
+        <div class="wm-diag">FAKE / これはフィクションです / PARODY</div>
+        <div class="bk-header">
+          <div class="bk-header-date">${nowStr()} ></div>
+          <div class="bk-header-note">日曜21:00〜月曜7:00は、一部サービスのみご利用いただけます。</div>
         </div>
-        <div class="bank-label">残高</div>
-        <div class="bank-amount">${formatted}</div>
-        <div class="bank-sub">
-          <div class="bank-sub-item">
-            積立口座
-            <div class="bank-sub-val">${savings}</div>
-          </div>
-          <div class="bank-sub-item">
-            今月の入金
-            <div class="bank-sub-val plus">${monthIn}</div>
+        <div class="bk-subheader">&#x1F504; 日曜21:00時点の残高表示</div>
+        <div class="bk-card">
+          <div class="bk-card-label">申込代表口座を表示しています</div>
+          <div class="bk-card-type">残高別普通 <span style="font-size:18px;color:#ccc;">></span></div>
+          <div class="bk-card-branch">経堂　支店 ${branchNum}${acctNum}</div>
+          <div class="bk-card-row">
+            <div>
+              <span class="bk-amount">${fmtYen(amtNum)}</span>
+              <span class="bk-amount-yen">円</span>
+            </div>
+            <div class="bk-hide-btn">非表示</div>
           </div>
         </div>
-        <div class="watermark">FAKE - 億り人ジェネレーター</div>
-      </div>
-    `;
-  } else if (state.template === 'stripe') {
-    const change = '+' + randomBetween(20, 350) + '%';
-    const txCount = randomBetween(100, 9999).toLocaleString();
-    const customers = randomBetween(50, 5000).toLocaleString();
-    const bars = Array.from({length: 12}, (_, i) => {
-      const h = i === 11 ? 100 : randomBetween(15, 85);
-      const cls = i === 11 ? 'str-bar current' : 'str-bar';
-      return `<div class="${cls}" style="height:${h}%"></div>`;
+        <div class="bk-link">その他の口座はこちら ></div>
+        <div class="bk-section">資産総額</div>
+        <div class="bk-mf">
+          <div class="bk-mf-header">
+            <span class="bk-mf-label">資産総額</span>
+            <span class="bk-mf-brand">Money Forward ME</span>
+          </div>
+          <div class="bk-mf-row">
+            <span class="bk-mf-amount">- - - 円</span>
+            <span class="bk-mf-amount">前日比 - - - 円</span>
+            <span class="bk-mf-connect">連携する ></span>
+          </div>
+        </div>
+        <div class="wm">FAKE - 億り人ジェネレーター</div>
+      </div>`;
+  } else if (S.tpl === 'stripe') {
+    const formatted = c === 'USD' ? '$' + a.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}) : '¥' + a.toLocaleString();
+    const change = '+' + rand(12, 280) + '.' + rand(0,9) + '%';
+    const txn = rand(80, 8000).toLocaleString();
+    const cust = rand(30, 3000).toLocaleString();
+    const avg = c === 'USD' ? '$' + Math.floor(a / rand(50,400)).toLocaleString() : '¥' + Math.floor(a / rand(50,400)).toLocaleString();
+    const bars = Array.from({length:14}, (_,i) => {
+      const h = i === 13 ? 100 : rand(10, 80);
+      return `<div class="st-bar${i===13?' hi':''}" style="height:${h}%"></div>`;
     }).join('');
     area.innerHTML = `
-      <div class="tpl-stripe" id="captureTarget">
-        <div class="watermark-diagonal">FAKE / これはフィクションです / PARODY</div>
-        <div class="str-header">
-          <div class="str-brand">dashboard</div>
-          <div class="str-badge">Live</div>
+      <div class="tpl-stripe" id="cap">
+        <div class="wm-diag">FAKE / これはフィクションです / PARODY</div>
+        <div class="st-nav">
+          <div class="st-brand">stripe</div>
+          <div class="st-live">Live</div>
         </div>
-        <div class="str-label">${month} の売上</div>
-        <div class="str-amount">${formatted}</div>
-        <div class="str-change">${change} vs 先月</div>
-        <div class="str-chart">${bars}</div>
-        <div class="str-footer">
-          <div class="str-foot-item">
-            取引数
-            <div class="str-foot-val">${txCount}</div>
-          </div>
-          <div class="str-foot-item">
-            顧客数
-            <div class="str-foot-val">${customers}</div>
-          </div>
-          <div class="str-foot-item">
-            平均単価
-            <div class="str-foot-val">${fmtAmount(Math.floor(amt / randomBetween(50, 500)), cur)}</div>
-          </div>
+        <div class="st-tabs">
+          <span class="st-tab active">概要</span>
+          <span class="st-tab">支払い</span>
+          <span class="st-tab">顧客</span>
+          <span class="st-tab">商品</span>
         </div>
-        <div class="watermark">FAKE - 億り人ジェネレーター</div>
-      </div>
-    `;
+        <div class="st-period">${monthStr()}</div>
+        <div class="st-amount">${formatted}</div>
+        <div class="st-change">${change} vs 先月</div>
+        <div class="st-chart">${bars}</div>
+        <div class="st-foot">
+          <div class="st-fitem">取引数<div class="st-fval">${txn}</div></div>
+          <div class="st-fitem">顧客数<div class="st-fval">${cust}</div></div>
+          <div class="st-fitem">平均単価<div class="st-fval">${avg}</div></div>
+        </div>
+        <div class="wm">FAKE - 億り人ジェネレーター</div>
+      </div>`;
   }
 
-  updateTweetTemplates();
-  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  mkTweets();
+  pv.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function updateTweetTemplates() {
-  const amt = state.amount;
-  const cur = state.currency;
-  const formatted = fmtAmount(amt, cur);
-  const short = fmtShort(amt);
+function mkTweets() {
+  const a = S.amt, c = S.cur;
+  const f = c === 'USD' ? '$' + a.toLocaleString() : '¥' + a.toLocaleString();
+  const s = fmtShort(a);
+  const m = monthStr();
 
-  const templates = [
-    `${getMonthStr()}の収益報告です。\n\n${formatted}\n\n正直、もう会社辞めてもいい気がしてます。\n\n#収益報告 #副業 #億り人ジェネレーター`,
-    `副業3ヶ月目。\n月収${short}を達成しました。\n\nやったことはプロフに書いてます。\n（何も書いてない）\n\n#副業で稼ぐ #億り人ジェネレーター`,
-    `え、まだ会社で消耗してるの？\n\n僕は先月${short}稼ぎました。\n方法？ DMください。\n（DMしても何も来ません）\n\n#脱サラ #億り人ジェネレーター`,
-    `【${getMonthStr()}実績】\n売上：${formatted}\n労働時間：1日30分\n場所：タイのプール付きヴィラ\n\n嘘です。布団の中です。\n\n#億り人ジェネレーター`,
-    `月収${short}達成したので\n有料note出します。\n\n内容：「このスクショの作り方」\n価格：49,800円\n\n※このスクショはフィクションです\n\n#情報商材 #ネタ #億り人ジェネレーター`,
+  const ts = [
+    `${m}の収益報告です。\n\n${f}\n\n正直、もう会社辞めてもいい気がしてます。\n\n#収益報告 #副業 #億り人ジェネレーター`,
+    `副業3ヶ月目。\n月収${s}を達成しました。\n\nやったことはプロフに書いてます。\n（何も書いてない）\n\n#副業で稼ぐ #億り人ジェネレーター`,
+    `え、まだ会社で消耗してるの？\n\n僕は先月${s}稼ぎました。\n方法？ DMください。\n（DMしても何も来ません）\n\n#脱サラ #億り人ジェネレーター`,
+    `【${m}実績】\n売上：${f}\n労働時間：1日30分\n場所：タイのプール付きヴィラ\n\n嘘です。布団の中です。\n\n#億り人ジェネレーター`,
+    `月収${s}達成したので有料note出します。\n\n内容：「このスクショの作り方」\n価格：49,800円\n\n※このスクショはフィクションです\n\n#情報商材 #ネタ #億り人ジェネレーター`,
   ];
+  window._tw = ts;
 
-  const container = document.getElementById('tweetTemplates');
-  container.innerHTML = templates.map((t, i) => `
-    <div class="tweet-tpl" onclick="copyTweet(this, ${i})">
-      ${t.replace(/\n/g, '<br>')}
-      <span class="copy-hint">クリックでコピー</span>
-    </div>
-  `).join('');
-
-  // store raw text
-  window._tweetTexts = templates;
+  document.getElementById('twArea').innerHTML = ts.map((t,i) =>
+    `<div class="tw" onclick="cpTw(this,${i})">${t.replace(/\n/g,'<br>')}<span class="cp">コピー</span></div>`
+  ).join('');
 }
 
-function copyTweet(el, idx) {
-  const text = window._tweetTexts[idx];
-  navigator.clipboard.writeText(text).then(() => {
-    el.querySelector('.copy-hint').textContent = 'コピーしました!';
-    el.querySelector('.copy-hint').classList.add('copied');
-    showToast('テキストをコピーしました');
-    setTimeout(() => {
-      el.querySelector('.copy-hint').textContent = 'クリックでコピー';
-      el.querySelector('.copy-hint').classList.remove('copied');
-    }, 2000);
+function cpTw(el, i) {
+  navigator.clipboard.writeText(window._tw[i]).then(() => {
+    el.querySelector('.cp').textContent = 'OK!';
+    el.querySelector('.cp').classList.add('ok');
+    toast('コピーしました');
+    setTimeout(() => { el.querySelector('.cp').textContent = 'コピー'; el.querySelector('.cp').classList.remove('ok'); }, 1500);
   });
 }
 
-async function downloadImage() {
-  const target = document.getElementById('captureTarget');
-  if (!target) return;
+async function dl() {
+  const t = document.getElementById('cap');
+  if (!t) return;
   try {
-    const canvas = await html2canvas(target, {
-      backgroundColor: null,
-      scale: 2,
-      useCORS: true,
-    });
-    const link = document.createElement('a');
-    link.download = '億り人ジェネレーター.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-    showToast('画像を保存しました');
-  } catch(e) {
-    showToast('保存に失敗しました');
-  }
+    const c = await html2canvas(t, { backgroundColor: null, scale: 2, useCORS: true });
+    const l = document.createElement('a');
+    l.download = '億り人ジェネレーター.png';
+    l.href = c.toDataURL('image/png');
+    l.click();
+    toast('保存しました');
+  } catch(e) { toast('保存に失敗'); }
 }
 
-function shareToX() {
-  const text = window._tweetTexts ? window._tweetTexts[3] : '億り人ジェネレーターで収益報告を作りました';
-  const url = window.location.href;
-  const tweetUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(text + '\n\n' + url)}`;
-  window.open(tweetUrl, '_blank');
+function postX() {
+  const t = window._tw ? window._tw[3] : '億り人ジェネレーターで収益報告を作りました #億り人ジェネレーター';
+  window.open(`https://x.com/intent/tweet?text=${encodeURIComponent(t + '\n\n' + location.href)}`, '_blank');
 }
 
-function showToast(msg) {
-  const toast = document.getElementById('toast');
-  toast.textContent = msg;
-  toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), 2000);
+function toast(m) {
+  const t = document.getElementById('toast');
+  t.textContent = m;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1800);
 }
 
-// Format input with commas
-document.getElementById('amountInput').addEventListener('input', function() {
-  let v = this.value.replace(/[^\d]/g, '');
-  if (v) {
-    this.value = parseInt(v, 10).toLocaleString();
-  }
+document.getElementById('amtIn').addEventListener('input', function() {
+  const v = this.value.replace(/\D/g, '');
+  if (v) this.value = parseInt(v, 10).toLocaleString();
 });
-
-document.getElementById('amountInput').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') generate();
-});
+document.getElementById('amtIn').addEventListener('keydown', e => { if (e.key === 'Enter') gen(); });
 </script>
 
 </body>
