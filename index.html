@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>億り人ジェネレーター</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 <meta name="description" content="架空の収益報告スクリーンショットを生成するネタサイト。あなたも今日から億り人。">
 <meta property="og:title" content="億り人ジェネレーター">
 <meta property="og:description" content="あなたも今日から億り人。架空の収益報告を作って遊ぼう。">
@@ -712,6 +713,46 @@
   .tw:hover .cp { opacity: 1; }
   .tw .cp.ok { opacity: 1; color: #30b566; }
 
+  .tw.sel {
+    border-color: #1a1a1a;
+    background: #f9f8f6;
+  }
+
+  .tw-actions {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .tw-act {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #e0ddd8;
+    background: white;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    color: #1a1a1a;
+    text-align: center;
+  }
+
+  .tw-act:hover { border-color: #1a1a1a; }
+
+  .tw-act.xact {
+    background: #1a1a1a;
+    border-color: #1a1a1a;
+    color: white;
+  }
+
+  .tw-act.xact:hover { background: #333; }
+
+  .tw-act:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
   /* ===== FOOTER ===== */
   footer {
     max-width: 600px;
@@ -805,15 +846,18 @@
     <div class="pv-bar">
       <span>プレビュー</span>
       <div class="pv-actions">
-        <button class="pv-btn" onclick="dl()">保存</button>
-        <button class="pv-btn xpost" onclick="postX()">&#x1D54F; ポスト</button>
+        <button class="pv-btn" onclick="dl()">画像を保存</button>
       </div>
     </div>
     <div class="ss-wrap" id="ssArea"></div>
 
     <div class="tweets">
-      <h3>投稿テンプレ（タップでコピー）</h3>
+      <h3>投稿テンプレを選んでポスト</h3>
       <div id="twArea"></div>
+      <div class="tw-actions">
+        <button class="tw-act" id="cpBtn" onclick="cpSel()" disabled>テキストをコピー</button>
+        <button class="tw-act xact" id="xBtn" onclick="postX()" disabled>&#x1D54F; ポストする</button>
+      </div>
     </div>
   </div>
 </main>
@@ -825,7 +869,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const S = { tpl: 'x', cur: 'JPY', amt: 0 };
+const S = { tpl: 'x', cur: 'JPY', amt: 0, selTw: -1 };
 
 function pickTpl(t) {
   S.tpl = t;
@@ -1027,17 +1071,29 @@ function mkTweets() {
   ];
   window._tw = ts;
 
+  S.selTw = -1;
   document.getElementById('twArea').innerHTML = ts.map((t,i) =>
-    `<div class="tw" onclick="cpTw(this,${i})">${t.replace(/\n/g,'<br>')}<span class="cp">コピー</span></div>`
+    `<div class="tw" data-i="${i}" onclick="selTw(${i})">${t.replace(/\n/g,'<br>')}</div>`
   ).join('');
+  updTwBtns();
 }
 
-function cpTw(el, i) {
-  navigator.clipboard.writeText(window._tw[i]).then(() => {
-    el.querySelector('.cp').textContent = 'OK!';
-    el.querySelector('.cp').classList.add('ok');
+function selTw(i) {
+  S.selTw = i;
+  document.querySelectorAll('.tw').forEach(el => el.classList.toggle('sel', +el.dataset.i === i));
+  updTwBtns();
+}
+
+function updTwBtns() {
+  const on = S.selTw >= 0;
+  document.getElementById('cpBtn').disabled = !on;
+  document.getElementById('xBtn').disabled = !on;
+}
+
+function cpSel() {
+  if (S.selTw < 0 || !window._tw) return;
+  navigator.clipboard.writeText(window._tw[S.selTw]).then(() => {
     toast('コピーしました');
-    setTimeout(() => { el.querySelector('.cp').textContent = 'コピー'; el.querySelector('.cp').classList.remove('ok'); }, 1500);
   });
 }
 
@@ -1055,7 +1111,8 @@ async function dl() {
 }
 
 function postX() {
-  const t = window._tw ? window._tw[3] : '億り人ジェネレーターで収益報告を作りました #億り人ジェネレーター';
+  if (S.selTw < 0 || !window._tw) return;
+  const t = window._tw[S.selTw];
   window.open(`https://x.com/intent/tweet?text=${encodeURIComponent(t + '\n\n' + location.href)}`, '_blank');
 }
 
