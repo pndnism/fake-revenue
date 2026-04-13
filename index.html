@@ -299,17 +299,6 @@
     padding: 32px 24px 20px;
   }
 
-  .tpl-x .x-avatar {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    background: #2f3336;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 32px;
-  }
 
   .tpl-x .x-handle {
     font-size: 14px;
@@ -366,27 +355,6 @@
     opacity: 0.85;
   }
 
-  .tpl-bank .bk-header-note {
-    font-size: 11px;
-    background: rgba(0,0,0,0.15);
-    border-radius: 6px;
-    padding: 6px 10px;
-    margin-top: 8px;
-    line-height: 1.4;
-    text-align: left;
-  }
-
-  .tpl-bank .bk-subheader {
-    background: #f7f6f3;
-    padding: 10px 16px;
-    text-align: center;
-    font-size: 13px;
-    color: #888;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-  }
 
   .tpl-bank .bk-card {
     background: white;
@@ -394,13 +362,6 @@
     border-radius: 10px;
     padding: 18px 16px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-  }
-
-  .tpl-bank .bk-card-label {
-    font-size: 12px;
-    color: #1b6b3a;
-    font-weight: 700;
-    margin-bottom: 2px;
   }
 
   .tpl-bank .bk-card-type {
@@ -448,72 +409,6 @@
     border-radius: 6px;
     padding: 5px 14px;
     font-weight: 500;
-  }
-
-  .tpl-bank .bk-link {
-    text-align: right;
-    padding: 10px 16px;
-    font-size: 13px;
-    color: #1b6b3a;
-    font-weight: 700;
-  }
-
-  .tpl-bank .bk-section {
-    padding: 14px 16px 8px;
-    font-size: 15px;
-    font-weight: 900;
-    color: #333;
-  }
-
-  .tpl-bank .bk-mf {
-    margin: 0 16px;
-    background: white;
-    border-radius: 10px;
-    padding: 14px 16px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-  }
-
-  .tpl-bank .bk-mf-header {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 10px;
-  }
-
-  .tpl-bank .bk-mf-label {
-    font-size: 14px;
-    font-weight: 700;
-    color: #333;
-  }
-
-  .tpl-bank .bk-mf-brand {
-    font-size: 11px;
-    color: #999;
-    font-weight: 500;
-  }
-
-  .tpl-bank .bk-mf-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 0;
-    border-top: 1px solid #f0efec;
-  }
-
-  .tpl-bank .bk-mf-amount {
-    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', system-ui, sans-serif;
-    font-size: 14px;
-    color: #999;
-    font-variant-numeric: tabular-nums;
-  }
-
-  .tpl-bank .bk-mf-connect {
-    font-size: 13px;
-    color: #1b6b3a;
-    font-weight: 700;
-    background: #e8f5e9;
-    padding: 5px 14px;
-    border-radius: 20px;
   }
 
   /* ====== TPL 3: Stripe Dashboard ====== */
@@ -958,7 +853,6 @@ function gen() {
           <span class="x-navtitle">クリエイター収益ダッシュボード / X</span>
         </div>
         <div class="x-body">
-          <div class="x-avatar">&#x1F436;</div>
           <div class="x-handle">@your_handle</div>
           <div class="x-entries">
             <div class="x-entry">
@@ -979,6 +873,8 @@ function gen() {
       </div>`;
   } else if (S.tpl === 'bank') {
     const amtNum = c === 'USD' ? Math.floor(a * 150) : a;
+    const branches = ['さくら','みどり','はなみず','あおぞら','こもれび','ひだまり','かぜのね','つきみ'];
+    const branch = branches[rand(0, branches.length - 1)];
     const branchNum = rand(100, 999);
     const acctNum = rand(1000000, 9999999);
     area.innerHTML = `
@@ -986,32 +882,16 @@ function gen() {
         <div class="wm-diag">FAKE / これはフィクションです / PARODY</div>
         <div class="bk-header">
           <div class="bk-header-date">${nowStr()} ></div>
-          <div class="bk-header-note">日曜21:00〜月曜7:00は、一部サービスのみご利用いただけます。</div>
         </div>
-        <div class="bk-subheader">&#x1F504; 日曜21:00時点の残高表示</div>
         <div class="bk-card">
-          <div class="bk-card-label">申込代表口座を表示しています</div>
           <div class="bk-card-type">残高別普通 <span style="font-size:18px;color:#ccc;">></span></div>
-          <div class="bk-card-branch">経堂　支店 ${branchNum}${acctNum}</div>
+          <div class="bk-card-branch">${branch}　支店 ${branchNum}${acctNum}</div>
           <div class="bk-card-row">
             <div>
               <span class="bk-amount">${fmtYen(amtNum)}</span>
               <span class="bk-amount-yen">円</span>
             </div>
             <div class="bk-hide-btn">非表示</div>
-          </div>
-        </div>
-        <div class="bk-link">その他の口座はこちら ></div>
-        <div class="bk-section">資産総額</div>
-        <div class="bk-mf">
-          <div class="bk-mf-header">
-            <span class="bk-mf-label">資産総額</span>
-            <span class="bk-mf-brand">Money Forward ME</span>
-          </div>
-          <div class="bk-mf-row">
-            <span class="bk-mf-amount">- - - 円</span>
-            <span class="bk-mf-amount">前日比 - - - 円</span>
-            <span class="bk-mf-connect">連携する ></span>
           </div>
         </div>
         <div class="wm">FAKE - 億り人ジェネレーター</div>
