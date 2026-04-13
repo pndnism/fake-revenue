@@ -751,7 +751,7 @@
       <div id="twArea"></div>
       <div class="tw-actions">
         <button class="tw-act" id="cpBtn" onclick="cpSel()" disabled>テキストをコピー</button>
-        <button class="tw-act xact" id="xBtn" onclick="postX()" disabled>&#x1D54F; ポストする</button>
+        <button class="tw-act xact" id="xBtn" onclick="postX()" disabled>&#x1D54F; ポストする（画像コピー付）</button>
       </div>
     </div>
   </div>
@@ -990,9 +990,21 @@ async function dl() {
   } catch(e) { toast('保存に失敗'); }
 }
 
-function postX() {
+async function postX() {
   if (S.selTw < 0 || !window._tw) return;
   const t = window._tw[S.selTw];
+  // 画像をクリップボードにコピーしてからX投稿画面を開く
+  const el = document.getElementById('cap');
+  if (el) {
+    try {
+      const cv = await html2canvas(el, { backgroundColor: null, scale: 2, useCORS: true });
+      const blob = await new Promise(r => cv.toBlob(r, 'image/png'));
+      if (blob && navigator.clipboard?.write) {
+        await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+        toast('画像をコピーしました。X投稿画面でペーストしてください');
+      }
+    } catch(e) { /* clipboard失敗時はテキストのみで続行 */ }
+  }
   window.open(`https://x.com/intent/tweet?text=${encodeURIComponent(t + '\n\n' + location.href)}`, '_blank');
 }
 
