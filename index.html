@@ -337,20 +337,6 @@
     color: #333;
   }
 
-  .tpl-bank .bk-header {
-    background: #1b6b3a;
-    padding: 16px 16px 14px;
-    color: white;
-    text-align: center;
-  }
-
-  .tpl-bank .bk-header-date {
-    font-size: 14px;
-    font-weight: 500;
-    opacity: 0.85;
-  }
-
-
   .tpl-bank .bk-card {
     background: white;
     margin: 8px 16px;
@@ -882,9 +868,6 @@ function gen() {
     area.innerHTML = `
       <div class="tpl-bank" id="cap">
         <div class="wm-diag">FAKE / これはフィクションです / PARODY</div>
-        <div class="bk-header">
-          <div class="bk-header-date">${nowStr()} ></div>
-        </div>
         <div class="bk-card">
           <div class="bk-card-type">残高別普通 <span style="font-size:18px;color:#ccc;">></span></div>
           <div class="bk-card-branch">${branch}　支店 ${branchNum}${acctNum}</div>
