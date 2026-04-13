@@ -300,11 +300,6 @@
   }
 
 
-  .tpl-x .x-handle {
-    font-size: 14px;
-    color: #71767b;
-    margin-bottom: 28px;
-  }
 
   .tpl-x .x-entries {
     width: 100%;
@@ -619,6 +614,13 @@
     margin-top: 10px;
   }
 
+  .tw-hint {
+    font-size: 12px;
+    color: #999;
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
   .tw-act {
     flex: 1;
     padding: 10px;
@@ -751,8 +753,9 @@
       <div id="twArea"></div>
       <div class="tw-actions">
         <button class="tw-act" id="cpBtn" onclick="cpSel()" disabled>テキストをコピー</button>
-        <button class="tw-act xact" id="xBtn" onclick="postX()" disabled>&#x1D54F; ポストする（画像コピー付）</button>
+        <button class="tw-act xact" id="xBtn" onclick="postX()" disabled>&#x1D54F; ポストする</button>
       </div>
+      <p class="tw-hint">ポスト時に生成画像がクリップボードにコピーされます。投稿画面でペースト（Ctrl+V / Cmd+V）して画像を添付してください。</p>
     </div>
   </div>
 </main>
@@ -853,7 +856,6 @@ function gen() {
           <span class="x-navtitle">クリエイター収益ダッシュボード / X</span>
         </div>
         <div class="x-body">
-          <div class="x-handle">@your_handle</div>
           <div class="x-entries">
             <div class="x-entry">
               <div class="x-entry-amt">${e1}</div>
